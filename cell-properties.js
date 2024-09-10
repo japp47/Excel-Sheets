@@ -11,6 +11,9 @@ for(let i =0; i<rows;i++) {
             fontSize: "16",
             fontColor: "#000000",
             BGcolor: "#000000",
+            value: "",
+            formula:"",
+            children: []
 
         }
         sheetRow.push(cellProp);
@@ -115,6 +118,7 @@ alignment.forEach((alighnElem) => {
                 centerAlign.style.backgroundColor = inactiveColor;
                 break;
         }
+        
     })
 });
 
@@ -158,6 +162,10 @@ allCells.forEach((cell) => {
                 centerAlign.style.backgroundColor = inactiveColor;
                 break;
         }
+        let formulaBar = document.querySelector(".formula-bar");
+        formulaBar.value = cellProp.formula;
+        cell.value = cellProp.value;
+
     })
 });
 

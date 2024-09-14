@@ -1,3 +1,21 @@
+const modal = document.getElementById("modal");
+const closeBtn = document.querySelector(".close");
+const modalCloseBtn = document.getElementById("modal-close-btn");
+function showModal() {
+    modal.style.display = "flex"; // Show modal
+}
+closeBtn.onclick = function() {
+    modal.style.display = "none";
+};
+modalCloseBtn.onclick = function() {
+    modal.style.display = "none";
+};
+window.onclick = function(event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
+
 for(let i=0; i< rows;i++) {
     for(let j = 0;j< cols;j++) {
         let cell = document.querySelector(`.cell[rid="${i}"][cid="${j}"]`);
@@ -24,12 +42,50 @@ formulaBar.addEventListener("keydown",(e)=> {
         let [cell, cellProp] = activecell(address);
         if(input!==cellProp.formula) removeChildFromParent(cellProp.formula);
 
+        addChildToGraphComponent(input, address);
+
+        let isCyclic = isGraphCyclic(graphComponent);
+        if(isCyclic===true) {
+            showModal();
+            //alert("Your formula is cyclic");
+            removeChildFromGraphComponent(input, address);
+            return;
+        }
+
         let evaluatedVal = evaluateFormula(input);
+
         setCellIandCellprop(evaluatedVal, input, address);
         addChildToParent(input);
         updateChildrenCells(address);
     }
 });
+
+function addChildToGraphComponent(formula, childAddress) {
+    let [crid, ccid] = decodeRidCid(childAddress);
+    let encodedFormula = formula.split(" ");
+    for(let i = 0;i<encodedFormula.length; i++) {
+        //let Eformula = encodedFormula[i];
+        let asciiVal = encodedFormula[i].charCodeAt(0);
+        if(asciiVal>=65 && asciiVal<=90) {
+            let [prid, pcid] = decodeRidCid(encodedFormula[i]); 
+            graphComponent[prid][pcid].push([crid, ccid]);
+        }
+    }
+}
+
+function removeChildFromGraphComponent(formula, childAddress) {
+    let [crid, ccid] = decodeRidCid(childAddress);
+    let encodedFormula = formula.split(" ");
+    for(let i = 0;i<encodedFormula.length; i++) {
+        let Eformula = encodedFormula[i];
+        let asciiVal = Eformula.charCodeAt(0);
+        if(asciiVal>=65 && asciiVal<=90) {
+            let [prid, pcid] = decodeRidCid(Eformula);
+            graphComponent[prid][pcid].pop();
+        }
+    }
+
+}
 
 function updateChildrenCells(parentAddress) {
     let [parentCell, parentCellProp] = activecell(parentAddress);

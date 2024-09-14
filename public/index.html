@@ -99,15 +99,23 @@
             <div class="sheet-folder">Sheet 1</div>
         </div>
     </div>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Warning!</h2>
+          <p>Your formula is cyclic. Please review the formula.</p>
+          <button id="modal-close-btn">Close</button>
+        </div>
+    </div>
 
-    <script src="./grid.js"></script>
-    <script src="./cyclicPathTrace.js"></script>
-    <script src="./cycleValidation.js"></script>
-    <script src="./sheetsHandling.js"></script>
-    <script src="./cell-properties.js"></script>
-    <script src="./formula.js"></script>
-    <script src="./cutCopyPaste.js"></script>
-    <script src="./openSave.js"></script>
+    <script src="../services/grid.js"></script>
+    <!-- <script src="./cyclicPathTrace.js"></script> -->
+    <script src="../services/cycleValidation.js"></script>
+    <!-- <script src="./sheetsHandling.js"></script> -->
+    <script src="../services/cell-properties.js"></script>
+    <script src="../services/formula.js"></script>
+    <!-- <script src="./cutCopyPaste.js"></script> -->
+    <!-- <script src="./openSave.js"></script> -->
 
 </body>
 </html>

@@ -1,20 +1,4 @@
-const modal = document.getElementById("modal");
-const closeBtn = document.querySelector(".close");
-const modalCloseBtn = document.getElementById("modal-close-btn");
-function showModal() {
-    modal.style.display = "flex"; // Show modal
-}
-closeBtn.onclick = function() {
-    modal.style.display = "none";
-};
-modalCloseBtn.onclick = function() {
-    modal.style.display = "none";
-};
-window.onclick = function(event) {
-    if (event.target === modal) {
-        modal.style.display = "none";
-    }
-};
+
 
 for(let i=0; i< rows;i++) {
     for(let j = 0;j< cols;j++) {
@@ -48,10 +32,10 @@ formulaBar.addEventListener("keydown",async (e)=> {
         if(cycleResponse) {
             //showModal();
             //alert("Your formula is cyclic");
-            let response = confirm("Your formula is cyclic. Do you want to trace it?");
+            let response = await showCyclicModal();
             while(response === true) {
                 await isGraphCyclicTracePath(graphComponent, cycleResponse);
-                response = confirm("Your formula is cyclic. Do you want to trace it?");
+                response = await showCyclicModal();
             }
             removeChildFromGraphComponent(input, address);
             return;

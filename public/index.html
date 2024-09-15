@@ -99,16 +99,21 @@
             <div class="sheet-folder">Sheet 1</div>
         </div>
     </div>
-    <div id="modal" class="modal">
+    <!-- Modal -->
+    <div id="cyclicModal" class="modal">
         <div class="modal-content">
-          <span class="close">&times;</span>
-          <h2>Warning!</h2>
-          <p>Your formula is cyclic. Please review the formula.</p>
-          <button id="modal-close-btn">Close</button>
+            <span class="close" id="closeModal">&times;</span>
+            <p>Your formula is cyclic. Do you want to trace it?</p>
+            <div class="modal-buttons">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+            </div>
         </div>
     </div>
+  
 
     <script src="../services/grid.js"></script>
+    <script src = "../utils/confirmMsg.js"></script>
     <script src="../services/cycleValidation.js"></script>
     <!-- <script src="./sheetsHandling.js"></script> -->
     <script src="../services/cell-properties.js"></script>

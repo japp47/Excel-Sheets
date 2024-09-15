@@ -193,46 +193,91 @@ body {
     height: 100%;
     width: 100%;
 }
+/* Modal styles */
 .modal {
     display: none; 
-    position: fixed;
-    z-index: 1000; 
+    position: fixed; 
+    z-index: 1; 
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Overlay background */
-    justify-content: center;
-    align-items: center;
+    width: 100%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background with slight transparency */
+    font-family: 'Roboto', sans-serif; /* Modern font */
   }
   
   .modal-content {
-    background-color: white;
+    background: linear-gradient(135deg, #562b4f, #72406b); /* Softer gradient with a deep purple base */
+    margin: 15% auto; 
     padding: 20px;
-    border-radius: 8px;
-    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6); /* Softer shadow */
+    width: 350px;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: white; /* White text for contrast */
+  }
+  
+  .modal-content p {
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  .modal-buttons button {
+    padding: 12px 25px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  #yesBtn {
+    background-color: #8a4ba3; /* Lighter purple */
+    color: white;
+  }
+  
+  #yesBtn:hover {
+    background-color: #72406b; /* Darker shade on hover */
+  }
+  
+  #noBtn {
+    background-color: #d93a6f; /* Contrasting dark pink */
+    color: white;
+  }
+  
+  #noBtn:hover {
+    background-color: #b02b56; /* Darker pink on hover */
   }
   
   .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 18px;
+    color: #fff;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: -15px;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #d93a6f; /* Highlight close button on hover */
+    text-decoration: none;
     cursor: pointer;
   }
   
-  button {
-    padding: 10px 20px;
-    background-color: #5a1b59;
-    color: white;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
+  /* Optional: Animation for smoother modal appearance */
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   
-  button:hover {
-    background-color: #88208f;
+  .modal-content {
+    animation: modalFadeIn 0.2s ease;
   }
+  
+  
   

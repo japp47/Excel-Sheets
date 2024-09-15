@@ -24,14 +24,14 @@ function isGraphCyclic(graphComponent)  {
     }
     for(let i = 0;i<rows;i++) {
         for(let j = 0;j<cols;j++) {
-            if(visited[i][j]==false) {
+            if(visited[i][j]===false) {
                 if(isCyclicUtil(graphComponent, i, j, visited, recStack) ==  true){
-                    return true;
+                    return [i, j];
                 }
             }   
         }
     }
-    return false;
+    return null;
 }
 function isCyclicUtil(graphComponent, srcr, srcc,visited,recStack) {
     visited[srcr][srcc] = true;

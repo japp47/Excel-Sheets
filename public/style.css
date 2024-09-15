@@ -11,6 +11,7 @@ body {
     display: flex;
     align-items: flex-end;
     padding-left: 1rem;
+    cursor: pointer;
 }
 .page-action {
     width: 3.5rem;
@@ -20,6 +21,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 1rem;
+    
+    
 }
 .selected-page-action {
     background-color: #f1f2f6;
@@ -85,7 +89,7 @@ body {
     gap: 1rem;
     background-color: #ecf0f1;
 }
-.sheet -cont > * {
+.sheet-cont > * {
     display: inline-block;
 }
 .sheet-add-icon {
@@ -179,6 +183,7 @@ body {
 
 .color-prop {
     position: relative;
+    cursor: pointer;
 }
 .color-prop > input {
     opacity: 0;

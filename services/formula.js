@@ -35,7 +35,7 @@ for(let i=0; i< rows;i++) {
 }
 
 let formulaBar = document.querySelector('.formula-bar');
-formulaBar.addEventListener("keydown",(e)=> {
+formulaBar.addEventListener("keydown",async (e)=> {
     let input = formulaBar.value;
     if(e.key == "Enter" && input) {
         let address = addressBar.value;
@@ -44,10 +44,15 @@ formulaBar.addEventListener("keydown",(e)=> {
 
         addChildToGraphComponent(input, address);
 
-        let isCyclic = isGraphCyclic(graphComponent);
-        if(isCyclic===true) {
-            showModal();
+        let cycleResponse = isGraphCyclic(graphComponent);
+        if(cycleResponse) {
+            //showModal();
             //alert("Your formula is cyclic");
+            let response = confirm("Your formula is cyclic. Do you want to trace it?");
+            while(response === true) {
+                await isGraphCyclicTracePath(graphComponent, cycleResponse);
+                response = confirm("Your formula is cyclic. Do you want to trace it?");
+            }
             removeChildFromGraphComponent(input, address);
             return;
         }

@@ -118,6 +118,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .sheet-content {
     width: 5rem;

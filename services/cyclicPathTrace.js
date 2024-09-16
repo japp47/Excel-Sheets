@@ -32,7 +32,7 @@ async function isCyclicUtilTracePath(graphComponent, srcr, srcc,visited,recStack
     recStack[srcr][srcc] = true;
 
     let cell = document.querySelector(`.cell[rid="${srcr}"][cid="${srcc}"]`);
-    cell.style.backgroundColor = "#6a0dad";
+    cell.style.backgroundColor = "lightblue";
     await colorPromise();
     for(let children = 0; children<graphComponent[srcr][srcc].length;children++) {
         let childr = graphComponent[srcr][srcc][children][0];
@@ -47,7 +47,7 @@ async function isCyclicUtilTracePath(graphComponent, srcr, srcc,visited,recStack
         }
         else if(visited[childr][childc]===true && recStack[childr][childc] === true)  {
             let cyclicCell = document.querySelector(`.cell[rid="${childr}"][cid="${childc}"]`);
-            cyclicCell.style.backgroundColor = "#d900ff";
+            cyclicCell.style.backgroundColor = "lightsalmon";
             await colorPromise();
             cyclicCell.style.backgroundColor = "transparent";
 

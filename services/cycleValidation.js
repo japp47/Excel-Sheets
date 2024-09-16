@@ -1,14 +1,16 @@
 //Storage -> 2d matrix
+let collectedGraphComponent = [];
 let graphComponent = [];
 
-for(let i = 0;i<rows;i++) {
-    let row = [];
-    for(let j = 0;j<cols;j++) {
-        //more than 1 chilf relatio that is why array    
-        row.push([]);
-    }
-    graphComponent.push(row);
-}
+
+// for(let i = 0;i<rows;i++) {
+//     let row = [];
+//     for(let j = 0;j<cols;j++) {
+//         //more than 1 chilf relatio that is why array    
+//         row.push([]);
+//     }
+//     graphComponent.push(row);
+// } 
 function isGraphCyclic(graphComponent)  {
     let visited = [];
     let recStack = [];

@@ -1,25 +1,31 @@
+let collectionStorage = [];
 let sheetDB = [];
-for(let i =0; i<rows;i++) {
-    let sheetRow = [];
-    for(let j = 0; j<cols;j++) {
-        let cellProp = {
-            bold: false,
-            italic: false,
-            underline: false,
-            alignment: "left",
-            fontFamily: 'monospace',
-            fontSize: "16",
-            fontColor: "#000000",
-            BGcolor: "#000000",
-            value: "",
-            formula:"",
-            children: []
-
-        }
-        sheetRow.push(cellProp);
-    }
-    sheetDB.push(sheetRow);
+{
+    let addSheetbtn = document.querySelector(".sheet-add-icon");
+    addSheetbtn.click();
+    //handleSheetProperties();
 }
+// for(let i =0; i<rows;i++) {
+//     let sheetRow = [];
+//     for(let j = 0; j<cols;j++) {
+//         let cellProp = {
+//             bold: false,
+//             italic: false,
+//             underline: false,
+//             alignment: "left",
+//             fontFamily: 'monospace',
+//             fontSize: "16",
+//             fontColor: "#000000",
+//             BGcolor: "#000000",
+//             value: "",
+//             formula:"",
+//             children: []
+
+//         }
+//         sheetRow.push(cellProp);
+//     }
+//     sheetDB.push(sheetRow);
+// }
 
 let bold = document.querySelector(".bold");
 let italic = document.querySelector(".italic");
@@ -164,7 +170,7 @@ allCells.forEach((cell) => {
         }
         let formulaBar = document.querySelector(".formula-bar");
         formulaBar.value = cellProp.formula;
-        cell.value = cellProp.value;
+        cell.innerText = cellProp.value;
 
     })
 });

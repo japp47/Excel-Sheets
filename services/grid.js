@@ -44,5 +44,3 @@ function addListenerAddressBar(cell, i, j) {
 
 //by defult
 // addressBar.value = "A1";
-let firstcell = document.querySelector(".cell")
-firstcell.click();

@@ -3,7 +3,6 @@ const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const closeModal = document.getElementById("closeModal");
 
-// Function to show the modal
 function showCyclicModal() {
   return new Promise((resolve, reject) => {
     cyclicModal.style.display = "block";
@@ -11,19 +10,17 @@ function showCyclicModal() {
     // If user clicks Yes
     yesBtn.onclick = function() {
       cyclicModal.style.display = "none";
-      resolve(true); // User wants to continue tracing
+      resolve(true); 
     };
 
-    // If user clicks No
     noBtn.onclick = function() {
       cyclicModal.style.display = "none";
-      resolve(false); // User doesn't want to continue tracing
+      resolve(false); 
     };
 
-    // If user clicks the close (X) button
     closeModal.onclick = function() {
       cyclicModal.style.display = "none";
-      resolve(false); // Treat close as No
+      resolve(false);
     };
 
     // If user clicks outside the modal, also treat it as No

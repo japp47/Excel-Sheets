@@ -51,30 +51,27 @@ formulaBar.addEventListener("keydown",async (e)=> {
 
 function addChildToGraphComponent(formula, childAddress) {
     let [crid, ccid] = decodeRidCid(childAddress);
-    let encodedFormula = formula.split(" ");
-    for(let i = 0;i<encodedFormula.length; i++) {
-        //let Eformula = encodedFormula[i];
-        let asciiVal = encodedFormula[i].charCodeAt(0);
-        if(asciiVal>=65 && asciiVal<=90) {
-            let [prid, pcid] = decodeRidCid(encodedFormula[i]); 
-            graphComponent[prid][pcid].push([crid, ccid]);
-        }
-    }
+
+    // Use regular expression to find all cell references
+    let encodedFormula = formula.match(/([A-Z][0-9]+)/g) || [];
+    encodedFormula.forEach((cellRef) => {
+        let [prid, pcid] = decodeRidCid(cellRef);
+        graphComponent[prid][pcid].push([crid, ccid]);
+    });
 }
+
 
 function removeChildFromGraphComponent(formula, childAddress) {
     let [crid, ccid] = decodeRidCid(childAddress);
-    let encodedFormula = formula.split(" ");
-    for(let i = 0;i<encodedFormula.length; i++) {
-        let Eformula = encodedFormula[i];
-        let asciiVal = Eformula.charCodeAt(0);
-        if(asciiVal>=65 && asciiVal<=90) {
-            let [prid, pcid] = decodeRidCid(Eformula);
-            graphComponent[prid][pcid].pop();
-        }
-    }
 
+    // Use regular expression to find all cell references
+    let encodedFormula = formula.match(/([A-Z][0-9]+)/g) || [];
+    encodedFormula.forEach((cellRef) => {
+        let [prid, pcid] = decodeRidCid(cellRef);
+        graphComponent[prid][pcid].pop();
+    });
 }
+
 
 function updateChildrenCells(parentAddress) {
     let [parentCell, parentCellProp] = activecell(parentAddress);
@@ -88,42 +85,54 @@ function updateChildrenCells(parentAddress) {
         updateChildrenCells(child);
     }
 }
-function removeChildFromParent(formula) {
-    let childAddress = addressBar.value;
-    let encodedFormula = formula.split(" ");
-    for(let i = 0;i<encodedFormula.length; i++) {
-        let asciiVal = encodedFormula[i].charCodeAt(0);
-        if(asciiVal>=65 && asciiVal<=90)  {
-            let [parentCell, parentCellProp] = activecell(encodedFormula[i]);
-            let idx = parentCellProp.children.indexOf(childAddress);
-            parentCellProp.children.splice(idx, 1)
-        }
-    }
-}
-
 function addChildToParent(formula) {
     let childAddress = addressBar.value;
-    let encodedFormula = formula.split(" ");
-    for(let i = 0;i<encodedFormula.length; i++) {
-        let asciiVal = encodedFormula[i].charCodeAt(0);
-        if(asciiVal>=65 && asciiVal<=90)  {
-            let [parentCell, parentCellProp] = activecell(encodedFormula[i]);
-            parentCellProp.children.push(childAddress);
-        }
-    }
+
+    // Use regular expression to find all cell references
+    let encodedFormula = formula.match(/([A-Z][0-9]+)/g) || [];
+    encodedFormula.forEach((cellRef) => {
+        let [parentCell, parentCellProp] = activecell(cellRef);
+        parentCellProp.children.push(childAddress);
+    });
 }
 
+function removeChildFromParent(formula) {
+    let childAddress = addressBar.value;
+
+    // Use regular expression to find all cell references
+    let encodedFormula = formula.match(/([A-Z][0-9]+)/g) || [];
+    encodedFormula.forEach((cellRef) => {
+        let [parentCell, parentCellProp] = activecell(cellRef);
+        let idx = parentCellProp.children.indexOf(childAddress);
+        parentCellProp.children.splice(idx, 1);
+    });
+}
+
+
+// function evaluateFormula(formula) {
+//     let encodedFormula = formula.split(" ");
+//     for(let i = 0;i<encodedFormula.length;i++) {
+//         let asciiVal = encodedFormula[i].charCodeAt(0);
+//         if(asciiVal>=65 && asciiVal<=90) {
+//             let [cell, cellProp] = activecell(encodedFormula[i]);
+//             encodedFormula[i] = cellProp.value;
+//         }
+//     }
+//     let decodedformula = encodedFormula.join(" ");
+//     return eval(decodedformula);
+// }
 function evaluateFormula(formula) {
-    let encodedFormula = formula.split(" ");
-    for(let i = 0;i<encodedFormula.length;i++) {
-        let asciiVal = encodedFormula[i].charCodeAt(0);
-        if(asciiVal>=65 && asciiVal<=90) {
-            let [cell, cellProp] = activecell(encodedFormula[i]);
-            encodedFormula[i] = cellProp.value;
-        }
-    }
-    let decodedformula = encodedFormula.join(" ");
-    return eval(decodedformula);
+    // Regular expression to match cell references (e.g., A1, B2, etc.)
+    let cellReferencePattern = /([A-Z][0-9]+)/g;
+
+    // Replace all cell references with their corresponding values
+    let evaluatedFormula = formula.replace(cellReferencePattern, (match) => {
+        let [cell, cellProp] = activecell(match);
+        return cellProp.value; // Replace the cell reference with its value
+    });
+
+    // Evaluate the formula
+    return eval(evaluatedFormula);
 }
 function setCellIandCellprop(evaluatedVal, formula, address) {
     let [cell, cellProp] = activecell(address);
